@@ -1,0 +1,26 @@
+{
+  "project": "boston-airbnb-listings-analysis",
+  "raw_sha256": "9c2fa5db20b0d1018cb558750aeb276599ea877e1e0c1ae315766a032d78881f",
+  "raw_shape": [
+    3585,
+    95
+  ],
+  "cleaned_shape": [
+    3585,
+    43
+  ],
+  "rows_removed": 0,
+  "notebooks_executed": 3,
+  "sql_queries_validated": 15,
+  "kpis": {
+    "total_listings": 3585,
+    "avg_price_usd": 173.9258019525802,
+    "median_price_usd": 150.0,
+    "avg_availability_365": 179.34644351464436,
+    "avg_rating": 91.91666666666667,
+    "rated_listings": 2772,
+    "total_reviews": 68275,
+    "instant_bookable_pct": 16.569037656903767,
+    "superhost_listing_pct": 11.352859135285913
+  }
+}
