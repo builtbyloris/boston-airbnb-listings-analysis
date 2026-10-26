@@ -18,6 +18,19 @@ The project focuses on pricing, listing mix, neighbourhoods, availability, revie
 
 > The dataset is historical. Findings describe this 2016 snapshot and should not be presented as the current Boston Airbnb market.
 
+## Distribution, privacy and licensing
+
+- **Source:** [Boston Airbnb Open Data (Kaggle)](https://www.kaggle.com/datasets/airbnb/boston).
+- **Dataset-card license:** [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), as stated for the referenced Kaggle version.
+- **Snapshot:** 2016-09-07. No claim is made about the current rental market.
+- **Raw and cleaned listing-level files:** used locally for the analysis and **not tracked in the current Git tree**.
+- **Public artifact:** [data/public/boston_airbnb_aggregated.csv](data/public/boston_airbnb_aggregated.csv), aggregated by neighbourhood and room type, with groups of fewer than 10 listings excluded. It has no listing or host identifiers, no addresses, and no coordinates.
+- **Privacy:** aggregation and suppression reduce exposure but do not guarantee anonymity. CC0 does not replace a privacy or third-party-rights assessment.
+- **Historical copies:** earlier Git commits contain the raw and cleaned CSVs. Removing them from the current tree **does not delete repository history or third-party copies**. No history rewrite is performed here.
+- **Code license:** no open-source license has been selected for the original analysis code. The dataset's CC0 designation does not license that code.
+
+The aggregated CSV is a separate **distribution artifact**, not an alternative source of truth for the existing analysis or dashboard. The databyloris production deployment and Supabase contents are managed separately and are not changed by commits to this repository.
+
 ## Business objective
 
 Use one cleaned source-of-truth dataset to answer practical questions about:
@@ -38,10 +51,16 @@ No causal claims are made. `availability_365` is treated as reported availabilit
 ```text
 boston-airbnb-listings-analysis/
 ├── data/
-│   ├── raw/
-│   │   └── listings.csv
-│   └── processed/
-│       └── boston_airbnb_cleaned.csv
+│   ├── public/
+│   │   ├── README.md
+│   │   └── boston_airbnb_aggregated.csv
+│   ├── raw/                  # downloaded locally, not tracked
+│   └── processed/            # generated locally, not tracked
+├── scripts/
+│   ├── build_public_dataset.py
+│   └── verify_source.py
+├── tests/
+│   └── test_project.py
 ├── notebooks/
 │   ├── 01_data_audit.ipynb
 │   ├── 02_data_cleaning.ipynb
@@ -61,7 +80,7 @@ boston-airbnb-listings-analysis/
 
 ## Cleaning strategy
 
-The raw file is preserved unchanged in `data/raw/`.
+The raw file is preserved unchanged **locally** in `data/raw/` and is excluded from the current Git tree.
 
 No rows are deleted and no missing values are imputed. The processed dataset keeps 43 analysis-relevant columns and applies only deterministic type conversions:
 
@@ -120,24 +139,44 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
+Before running notebooks, obtain the **same historical version** of \`listings.csv\` from [Kaggle](https://www.kaggle.com/datasets/airbnb/boston), and save it to \`data/raw/listings.csv\`. For example, with the authenticated [Kaggle CLI](https://github.com/Kaggle/kaggle-api):
+
+\`\`\`bash
+python -m pip install kaggle
+kaggle datasets download airbnb/boston -f listings.csv -p data/raw --unzip
+python scripts/verify_source.py
+\`\`\`
+
+The source verifier requires the documented SHA-256; a different download may represent a different version and must not silently replace it.
+
 Run the notebooks in order:
 
-1. `01_data_audit.ipynb`
-2. `02_data_cleaning.ipynb`
-3. `03_eda_analysis.ipynb`
+1. \`notebooks/01_data_audit.ipynb\`
+2. \`notebooks/02_data_cleaning.ipynb\`
+3. \`notebooks/03_eda_analysis.ipynb\`
 
-The cleaning notebook recreates `data/processed/boston_airbnb_cleaned.csv` from the untouched raw file.
+The cleaning notebook recreates \`data/processed/boston_airbnb_cleaned.csv\` from the untouched raw file.
+
+To rebuild the distributable summary and run checks:
+
+\`\`\`bash
+python scripts/build_public_dataset.py
+python -m unittest discover -s tests -v
+python sql/run_queries.py
+\`\`\`
+
+Checks requiring the local raw or cleaned CSV are skipped when those private local files are not present. This is not a substitute for running the full analytical verification locally.
 
 ## Dashboard-ready fields
 
-The cleaned CSV is also the dataset intended for the public dashboard. Recommended filters are:
+The cleaned CSV remains the analysis source used to prepare the existing databyloris dashboard, but is no longer tracked in this repository. Recommended filters are:
 
 - `room_type` — 3 values
 - `cancellation_policy` — 4 values
 - `property_type` — 13 non-null values
 - `neighbourhood_cleansed` — 25 values
 
-This keeps the dashboard source identical to the analytical source of truth; no separate reduced-row public subset is created.
+The existing dashboard's data and permissions are maintained separately in Supabase. The aggregated CSV in `data/public/` is not automatically used by the deployed dashboard.
 
 ## Limitations
 
