@@ -1,0 +1,25 @@
+name: Quality checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  public-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install validation dependencies
+        run: python -m pip install "pandas>=2.2,<3.0" "numpy>=1.26,<3.0"
+      - name: Validate public artifact and SQL inventory
+        run: python -m unittest discover -s tests -v
+      - name: Ensure listing-level CSVs are not tracked
+        run: |
+          if git ls-files 'data/raw/*.csv' 'data/processed/*.csv' | grep -q .; then
+            echo "Listing-level CSV tracked in Git" >&2
+            exit 1
+          fi

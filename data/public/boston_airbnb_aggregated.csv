@@ -1,0 +1,42 @@
+neighbourhood_cleansed,room_type,listings,avg_price_usd,median_price_usd,avg_availability_365
+Allston,Entire home/apt,98,175.51,154.50,117.99
+Allston,Private room,156,73.76,70.00,137.02
+Back Bay,Entire home/apt,263,255.08,225.00,198.25
+Back Bay,Private room,36,152.33,130.00,117.83
+Bay Village,Entire home/apt,20,299.55,268.00,249.95
+Beacon Hill,Entire home/apt,155,241.58,200.00,155.65
+Beacon Hill,Private room,36,160.53,137.50,193.31
+Brighton,Entire home/apt,75,163.05,140.00,179.69
+Brighton,Private room,103,88.42,75.00,161.63
+Charlestown,Entire home/apt,68,252.75,214.50,161.28
+Charlestown,Private room,42,113.07,84.00,236.81
+Chinatown,Entire home/apt,62,248.31,227.00,193.85
+Dorchester,Entire home/apt,66,160.27,150.00,174.14
+Dorchester,Private room,195,70.15,65.00,256.24
+Downtown,Entire home/apt,144,245.10,229.50,196.68
+Downtown,Private room,24,205.38,164.50,98.00
+East Boston,Entire home/apt,70,158.29,144.50,190.00
+East Boston,Private room,77,86.06,85.00,202.14
+Fenway,Entire home/apt,208,253.55,219.00,159.81
+Fenway,Private room,73,134.68,87.00,115.89
+Hyde Park,Private room,24,60.38,55.00,214.13
+Jamaica Plain,Entire home/apt,157,207.96,175.00,182.59
+Jamaica Plain,Private room,181,79.60,75.00,178.13
+Mattapan,Private room,21,72.05,65.00,296.29
+Mission Hill,Entire home/apt,48,185.42,169.00,157.67
+Mission Hill,Private room,68,86.72,75.00,104.81
+North End,Entire home/apt,119,211.55,195.00,172.82
+North End,Private room,21,125.76,120.00,128.76
+Roslindale,Entire home/apt,19,153.74,145.00,212.95
+Roslindale,Private room,37,70.03,65.00,256.62
+Roxbury,Entire home/apt,58,225.72,177.00,205.52
+Roxbury,Private room,81,94.85,75.00,204.51
+South Boston,Entire home/apt,102,241.92,200.00,167.06
+South Boston,Private room,69,110.80,105.00,217.71
+South Boston Waterfront,Entire home/apt,71,326.35,250.00,158.11
+South Boston Waterfront,Private room,12,186.00,160.00,179.25
+South End,Entire home/apt,250,222.15,199.00,173.16
+South End,Private room,69,140.25,125.00,132.14
+West End,Entire home/apt,43,223.93,199.00,236.56
+West Roxbury,Entire home/apt,15,170.47,125.00,200.80
+West Roxbury,Private room,29,74.38,68.00,225.72

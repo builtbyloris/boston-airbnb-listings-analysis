@@ -4,3 +4,12 @@ __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
 .env
+
+# Local listing-level data; keep private copies outside Git
+/data/raw/*.csv
+/data/processed/*.csv
+# Environment and private assets
+.env.*
+!.env.example
+*.parquet
+
